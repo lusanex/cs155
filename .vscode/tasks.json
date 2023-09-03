@@ -38,21 +38,32 @@
             "problemMatcher": "$msCompile"
         },
         {
-            "label": "clean",
-            "command": "dotnet",
-            "type": "process",
-            "args": [
-                "clean",
-                "${workspaceFolder}/consoleApp.csproj",
-                "/property:GenerateFullPaths=true",
-                "/consoleloggerparameters:NoSummary"
-            ],
-            "problemMatcher": "$msCompile"
+    "label": "clean",
+    "command": "dotnet",
+    "type": "process",
+    "args": [
+        "clean",
+        "${workspaceFolder}/consoleApp.csproj",
+        "/property:GenerateFullPaths=true",
+        "/consoleloggerparameters:NoSummary"
+    ],
+    "problemMatcher": "$msCompile"
+    },
+   
+    {
+        "label": "removeBinAndObj",
+        "type": "shell",
+        "command": "find ${workspaceFolder} -type d -name bin -exec rm -rf {} + && find ${workspaceFolder} -type d -name obj -exec rm -rf {} +",
+        "problemMatcher": [],
+        "windows": {
+            "command": "for /d /r . %%d in (bin,obj) do @if exist \"%%d\" rd /s/q \"%%d\""
         }
-        ,
+    },
+    
+
         {
             "label": "cleanAndBuild",
-            "dependsOn": ["clean", "build"],
+            "dependsOn": ["removeBinAndObj", "build"],
             "dependsOrder":"sequence" ,
             "problemMatcher": ["$msCompile"]
         }
