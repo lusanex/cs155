@@ -36,6 +36,25 @@
                 "${workspaceFolder}/consoleApp.csproj"
             ],
             "problemMatcher": "$msCompile"
+        },
+        {
+            "label": "clean",
+            "command": "dotnet",
+            "type": "process",
+            "args": [
+                "clean",
+                "${workspaceFolder}/consoleApp.csproj",
+                "/property:GenerateFullPaths=true",
+                "/consoleloggerparameters:NoSummary"
+            ],
+            "problemMatcher": "$msCompile"
+        }
+        ,
+        {
+            "label": "cleanAndBuild",
+            "dependsOn": ["clean", "build"],
+            "dependsOrder":"sequence" ,
+            "problemMatcher": ["$msCompile"]
         }
     ]
 }
